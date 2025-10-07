@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://code-her-digital-confidence.vercel.app/sitemap.xml
