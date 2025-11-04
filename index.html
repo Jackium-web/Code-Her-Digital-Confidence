@@ -91,7 +91,7 @@
 
         .btn {
             display: inline-block;
-            padding: 14px 30px;
+            padding: 10px 20px;
             background-color: var(--color-accent-gold);
             color: var(--color-white);
             border: none;
@@ -152,6 +152,7 @@
         nav ul {
             list-style: none;
             display: flex;
+            align-items: center;
         }
 
         nav ul li {
@@ -178,6 +179,11 @@
 
         nav ul li a:hover::after {
             width: 100%;
+        }
+
+        .nav-links{
+            display: flex;
+            align-items: center;
         }
 
         .menu-toggle {
@@ -522,47 +528,90 @@
             h2 { font-size: 2.2em; }
             #hero p { font-size: 1.2em; }
             nav ul li { margin-left: 20px; }
-            .logo{
-                width:120px;
-                height:120px;
-                border-radius:50%;
+            
+            /* NEW: Adjust image size on tablet for better fit */
+            .whole-logo img{
+                width: 80px; 
+                height: 80px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .menu-close{
+                display: none;
             }
         }
 
         @media (max-width: 768px) {
             .nav-content {
                 flex-wrap: wrap;
-                justify-content: space-between; 
+                justify-content: space-between;
             }
             .logo {
                 width: auto;
                 margin-bottom: 0;
             }
 
-            .title-logo{
-               display:none;
+            /* Reduced logo size for phone screens */
+            .whole-logo img{
+                width:50px; 
+                height:50px;
+                border-radius:50%;
+                margin-right:10px;
             }
-            
-            .menu-toggle { 
-                display: block; 
+            /* Compact title font size */
+            .title-logo{
+            font-size: 1.0rem;
             }
 
-            /* --- MOBILE NAVIGATION RULES --- */
-            nav {
-                width: 100%; 
+            /* Hamburger button style */
+            .menu-toggle {
+                display: block;
+                font-size: 2.2em; /* Larger touch target */
+                padding: 5px 10px; 
+                line-height: 1; 
             }
-            
-            nav ul {
+
+            /* NEW: Close button style for the overlay */
+            .menu-close {
                 display: none; 
-                flex-direction: column;
+                position: fixed;
+                top: 15px;
+                right: 15px;
+                font-size: 2.5em;
+                background: none;
+                border: none;
+                color: var(--color-white); /* White 'X' on the dark background */
+                cursor: pointer;
+                z-index: 10000;
+                padding: 10px;
+                line-height: 1;
+            }
+            /* Show the 'X' button when the menu is active */
+            nav.active .menu-close {
+                display: block;
+            }
+
+            /* --- FULL-SCREEN OVERLAY STYLES --- */
+            nav {
                 width: 100%;
-                background-color: var(--color-white);
-                position: absolute;
-                top: 70px; 
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100vw; /* Full screen width */
+                height: 100vh; /* Full screen height */
+                background-color: var(--color-primary-dark); /* Dark background */
+                position: fixed; /* Fixes it to the viewport */
+                top: 0; 
                 left: 0;
-                padding: 15px 0;
-                border-top: 1px solid var(--color-bg-light);
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                z-index: 9999; /* Above all other content */
+                padding: 0;
+                justify-content: center; /* Center links vertically */
+                align-items: center; /* Center links horizontally */
+                box-shadow: none;
+                border-top: none;
             }
 
             nav.active ul {
@@ -570,29 +619,37 @@
             }
 
             nav ul li {
-                margin: 0;
+                margin: 15px 0; /* More vertical spacing */
             }
 
             nav ul li a {
-                display: block;
-                padding: 12px 25px;
-                text-align: left;
-                width: 100%;
-                border-bottom: 1px dashed rgba(0,0,0,0.05);
+                color: var(--color-white); /* White text on dark background */
+                font-size: 1.6em; /* Larger links */
+                padding: 15px 25px;
+                text-align: center;
+                width: auto;
+                border-bottom: none; 
             }
-            nav ul li:last-child a {
-                border-bottom: none;
+            
+            nav ul li a:hover {
+                color: var(--color-accent-gold);
+            }
+
+            nav ul li:last-child {
+                margin-top: 30px; 
+                padding: 0;
+            }
+            /* Style the CTA button within the dark overlay */
+            nav ul li:last-child a.btn {
+                background-color: var(--color-accent-gold);
+                color: var(--color-white);
+                box-shadow: none;
             }
             
             nav ul li a::after {
                 content: none;
             }
-
-            nav ul li:last-child {
-                margin-top: 15px;
-                padding: 0 25px;
-            }
-            /* --- END MOBILE NAVIGATION RULES --- */
+            /* --- END FULL-SCREEN OVERLAY STYLES --- */
 
 
             .about-content-grid {
@@ -610,15 +667,14 @@
                 gap: 20px;
             }
             .direct-contact-links a {
-                /* Ensures long email/phone number breaks when necessary */
                 word-break: break-all; 
                 overflow-wrap: break-word; 
-                padding: 0 10px; /* Add some padding to prevent touching the edge */
+                padding: 0 10px; 
                 justify-content: center;
                 text-align: center;
             }
             .direct-contact-links a i {
-                flex-shrink: 0; /* Prevents icon from shrinking */
+                flex-shrink: 0; 
             }
             /* --- END FIX --- */
 
@@ -645,22 +701,25 @@
             footer .footer-links {
                 max-width: 90%;
                 margin: 10px auto;
-                /* Ensures links wrap nicely without stretching the container */
                 overflow-wrap: break-word; 
             }
             /* --- END FIX --- */
 
-             .logo{
-                width:120px;
-                height:120px;
-                border-radius:50%;
-            }
+            /* REMOVED: Conflicting style from previous iteration that broke mobile layout */
+            /* .logo{ width:120px; height:120px; border-radius:50%; } */
         }
 
         .whole-logo{
             display:flex;
             align-items:center;
             justify-content:space-between;
+        }
+
+        .whole-logo img{
+            width:100px;
+            height:100px;
+            border-radius:50%;
+            margin-right:15px;
         }
     </style>
 
@@ -672,7 +731,7 @@
             
             <a href="#hero" class="logo">
               <div class='whole-logo'>
-                   <img src="WhatsApp_Image_2025-11-04_at_12.09.06_AM-removebg-preview.png" alt="logo" class="logo" height="10%"/>
+                   <img src="WhatsApp_Image_2025-11-04_at_12.09.06_AM-removebg-preview.png" alt="logo" class="logo"/>
                    <div class='title-logo'>
                     Code Her
                        <br>
@@ -685,6 +744,9 @@
                 <i class="fas fa-bars"></i>
             </button>
             <nav id="main-nav">
+                <button class="menu-close" aria-label="Close navigation">
+                    <i class="fas fa-times"></i>
+                </button>
                 <ul id="nav-links">
                     <li><a href="#hero">Home</a></li>
                     <li><a href="#about">Our Story</a></li>
@@ -821,8 +883,7 @@
                 <a href="#about">Our Story</a> | 
                 <a href="#services">Programs</a> | 
                 <a href="#impact">Impact</a> 
-                <!-- <a href="#">Privacy Policy</a> -->
-            </div>
+                </div>
             <div class="social-links">
                 <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -856,6 +917,12 @@
         document.getElementById('menu-toggle').onclick = function() {
             var nav = document.getElementById('main-nav');
             nav.classList.toggle('active');
+        };
+
+        // NEW: Handler for the dedicated close button
+        document.querySelector('.menu-close').onclick = function() {
+            var nav = document.getElementById('main-nav');
+            nav.classList.remove('active');
         };
 
         // Header scroll effect
