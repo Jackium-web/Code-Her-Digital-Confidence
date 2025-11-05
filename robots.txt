@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://code-her-digital-confidence.vercel.app/sitemap.xml
+Sitemap: https://codeherdigitalconfidence.netlify.app/sitemap.xml
